@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>typingGame</title>
+  </head>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url('../resources/img/background.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #container {
+      width: 90%;
+      height: 80%;
+      position: relative;
+      /* display: flex;
+      justify-content: center;
+      align-items: flex-end; */
+    }
+    #input {
+      width: 180px;
+      height: 45px;
+      font-size: 16px;
+      padding: 10px;
+      border: none;
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+    }
+    .word {
+      color: #ffffff;
+      font-size: 30px;
+      font-weight: 500;
+      position: absolute;
+    }
+    .score {
+      color: #ffffff;
+      font-size: 40px;
+      font-weight: 600;
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 15px;
+    }
+  </style>
+  <body>
+    <div id="container">
+      <input id="input" type="text" placeholder="단어를 입력하세요." />
+    </div>
+    <div class="score">총점 : 0</div>
+  </body>
+  <script>
+    const words = [
+      'DW',
+      'JavaScript',
+      'DOM',
+      'BOM',
+      'document',
+      'window',
+      'Event',
+    ];
+    const input = document.querySelector('#input');
+    const scorePanel = document.querySelector('.score');
+    let count = 0;
+    let score = 0;
+
+    // 단어들이 뿌려질 container의 범위를 파악한다.
+    const container = document.querySelector('#container');
+    console.log(
+      `offsetWidth: ${container.offsetWidth}, offsetHeight: ${container.offsetHeight}`
+    );
+    const maxPositionX = container.offsetWidth - 90;
+    const maxPositionY = container.offsetHeight - 100;
+
+    // 단어를 생성하고 화면에 출력하는 부분
+    function init() {
+      words.forEach(function (el) {
+        // span 태그를 생성한다.
+        const span = document.createElement('span');
+
+        // words 배열에 있는 단어를 생성한 span 태그에 넣어준다.
+        span.innerHTML = el;
+
+        // span 태그에 클래스를 추가한다.(word)
+        span.classList.add('word');
+
+        // span 태그에 아이디 속성을 추가한다.
+        span.setAttribute('id', el);
+
+        // span 태그의 위치를 랜덤으로 설정한다.
+        span.style.top = `${Math.floor(Math.random() * maxPositionY)}px`;
+        span.style.left = `${Math.floor(Math.random() * maxPositionX)}px`;
+
+        // container div 에 span 태그를 추가한다.
+        container.append(span);
+      });
+    }
+
+    // 사용자가 입력한 텍스트와 동일한 id를 가진 span 태그를 제거한다.
+    input.addEventListener('change', function () {
+      const word = document.querySelector(`span[id=${input.value}]`);
+      if (word != null) {
+        word.remove();
+        score = score + 100;
+        scorePanel.innerHTML = `총점 : ${score}`;
+        count++;
+
+        // 게임 클리어
+        if (count == words.length) {
+          alert('Clear!!👏');
+          if (confirm('재도전??')) {
+            window.location.reload();
+          }
+        }
+      }
+      input.value = '';
+    });
+
+    // 단어들을 내려오게하는 부분
+    function wordRain() {
+      // HTMLCollection과 NodeList 는 모두 유사배열이지만
+      // HTMLCollection 은 배열 함수를 사용할 수 없다.
+      const words = document.querySelectorAll('.word');
+      // getBoundingClientRect : 최종 렌더링된 크기 반환(현재 뷰포트에서의 요소의 상대적인 위치)
+      // offset-, client-, scroll- : 레이아웃 크기를 반환
+      console.log(container.getBoundingClientRect().bottom - 45);
+      setInterval(function () {
+        words.forEach(function (el) {
+          const rectSize = el.getBoundingClientRect();
+          el.style.top = `${rectSize.top - 75}px`;
+          if (
+            el.getBoundingClientRect().bottom >
+            container.getBoundingClientRect().bottom -
+              parseInt(getComputedStyle(input).height.split('px')[0])
+          ) {
+            el.remove();
+          }
+        });
+      }, 1000);
+    }
+
+    init();
+    wordRain();
+  </script>
+</html>

@@ -25,6 +25,7 @@ body {
   box-shadow: 1px 1px 10px #333333;
   background-color: white;
 }
+
 .btn {
   border: none;
   background-color: transparent;
@@ -76,7 +77,7 @@ body {
 
 .friend-bubble {
   background-color: #f3f0f5;
-  border-radius: 14px 14px 0 14px;
+  border-radius: 14px 14px 14px 0;
   padding: 7px 15px;
   color: #8f00fe;
 }
@@ -87,9 +88,6 @@ body {
   padding: 7px 15px;
   color: #f3f0f5;
   align-self: flex-end;
-  padding: 10px;
-  width: 100%;
-  height: 80px;
 }
 
 .footer {

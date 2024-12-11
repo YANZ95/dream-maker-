@@ -3,10 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="keyboardpractice.css" />
-    <title>keyboard practice</title>
+    <link rel="stylesheet" href="1_keyboard.css" />
+    <title>fake keyboard</title>
   </head>
-  <style></style>
   <body>
     <input type="text" id="my-input" />
     <div class="events">
@@ -127,64 +126,79 @@
     </div>
   </body>
   <script>
-    const myInput = document.getElementById("my-input");
-    const key = document.getElementById("key");
-    const code = document.getElementById("code");
-    const keydown = document.getElementById("keydown");
-    const keyup = document.getElementById("keyup");
+    const myInput = document.getElementById('my-input');
+    const key = document.getElementById('key');
+    const code = document.getElementById('code');
+    const keydown = document.getElementById('keydown');
+    const keypress = document.getElementById('keypress');
+    const keyup = document.getElementById('keyup');
+    const dKey = document.getElementById('KeyD');
 
     function presskeyEvent() {
-      keypress.classList.add("check");
+      keypress.classList.add('check');
 
       setTimeout(function () {
-        keypress.classList.remove("check");
+        keypress.classList.remove('check');
       }, 300);
     }
 
     function downkeyEvent(e) {
-      const el = document.querySelector(`#${e.code}`);
-      if (e.code == "F1" || e.code == "F3") {
+      if (e.code == 'F1' || e.code == 'F3') {
         e.preventDefault();
       }
+      // 눌린 키에 대한 요소를 가져온다.
+      //   console.log(`key : ${e.key}, code : ${e.code}`);
+      const el = document.querySelector(`#${e.code}`);
+
+      // 외부 파일에 대한 엘리먼트 접근
       colorArr = [];
       for (let i = 0; i < 3; i++) {
         colorArr.push(parseInt(Math.random() * 256));
       }
-      el.style.setProperty("--main-color", `rgb(${colorArr})`);
+      el.style.setProperty('--main-color', `rgb(${colorArr})`);
 
-      keydown.classList.add("check");
+      // keydown div에 check 클래스를 추가한다.
+      keydown.classList.add('check');
 
-      el.classList.add("on");
+      // 눌린 키를 화면상에서 회색으로 변경한다.(클래스를 적용하여)
+      el.classList.add('on');
 
+      // 눌린 키의 "key"와 "code" 프로퍼티 값을 화면에 표시한다.
       key.innerHTML = `key: ${e.key}`;
       code.innerHTML = `code: ${e.code}`;
+
+      // check 클래스를 0.3초 이후에 제거한다.
       setTimeout(function () {
-        keydown.classList.remove("check");
+        keydown.classList.remove('check');
       }, 300);
     }
 
     function upkeyEvent(e) {
       console.log(`key: ${e.key}, code: ${e.code}`);
+      // 손가락을 뗏을 때의 키 요소를 가져온다.
       const el = document.querySelector(`#${e.code}`);
 
-      keyup.classList.add("check");
+      // keyup 요소에 check 클래스를 추가한다.
+      keyup.classList.add('check');
 
-      el.classList.remove("on");
+      // 손가락을 뗀 키를 화면상에서 다시 원상복구 시킨다.(on 클래스 삭제)
+      el.classList.remove('on');
 
+      // check 클래스를 0.3초 이후에 제거한다.
       setTimeout(function () {
-        keyup.classList.remove("check");
+        keyup.classList.remove('check');
       }, 300);
 
-      if (e.code == "AltRight") {
-        el.classList.add("on");
+      if (e.code == 'AltRight') {
+        el.classList.add('on');
         setTimeout(function () {
-          el.classList.remove("on");
+          el.classList.remove('on');
         }, 300);
       }
     }
 
-    myInput.addEventListener("keypress", presskeyEvent);
-    myInput.addEventListener("keydown", downkeyEvent);
-    myInput.addEventListener("keyup", upkeyEvent);
+    myInput.addEventListener('keypress', presskeyEvent);
+    myInput.addEventListener('keydown', downkeyEvent);
+    myInput.addEventListener('keyup', upkeyEvent);
   </script>
 </html>

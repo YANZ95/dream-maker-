@@ -1,0 +1,52 @@
+.diaryPage section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.diaryPage h4 {
+  font-size: 22px;
+  font-weight: bold;
+}
+.diaryPage .diary_img_wrapper {
+  background: #ececec;
+  width: 250px;
+  height: 250px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+.diaryPage .diary_img_wrapper_1 {
+  background-color: #64c964;
+}
+.diaryPage .diary_img_wrapper_2 {
+  background-color: #9dd772;
+}
+.diaryPage .diary_img_wrapper_3 {
+  background-color: #fdce17;
+}
+.diaryPage .diary_img_wrapper_4 {
+  background-color: #fd8446;
+}
+.diaryPage .diary_img_wrapper_5 {
+  background-color: #fd565f;
+}
+.diaryPage .emotion_description {
+  font-size: 25px;
+  color: #fff;
+}
+.diaryPage .diary_content_wrapper {
+  width: 100%;
+  background-color: #ececec;
+  border-radius: 5px;
+  word-break: keep-all;
+  /* 단어 단위로 끊어주는 역할을 하는 것 영어는 break all 적용해도 되는데 
+    한글은 keep-all 적용해야 다 적용이 됨 */
+}
+.diaryPage .diary_content_wrapper p {
+  padding: 20px;
+  font-size: 20px;
+  font-weight: 400;
+}

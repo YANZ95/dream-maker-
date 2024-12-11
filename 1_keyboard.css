@@ -47,6 +47,7 @@
 
 .row {
   display: flex;
+  justify-content: space-between;
 }
 
 .key {
@@ -55,6 +56,9 @@
   border: 1px solid #333333;
   border-radius: 3px;
   margin: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #Backspace,
@@ -76,7 +80,8 @@
 #ControlRight,
 #AltLeft,
 #AltRight,
-#WinLeft {
+#MetaLeft,
+#MetaRight {
   width: 50px;
 }
 
